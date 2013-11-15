@@ -31,7 +31,6 @@ require.config({
 
 define(function (require) {
     // dependencies
-    var Backbone = require("Backbone");
     require("marionette");
 
     //start Katuma app
