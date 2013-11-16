@@ -46,8 +46,7 @@ define(function (require) {
     var KatumaApp = require("KatumaApp");
 
     //start KatumaApp
-    KatumaApp.start();
-
-    require("bootstrap");
-
+    $( document ).ready(function(){
+        KatumaApp.start();
+    });
 });

@@ -19,10 +19,8 @@ define(function (require) {
     });
 
     KatumaApp.on("initialize:before", function(){
-        //create Layouts
         var layout = new PublicLayout();
         this.mainRegion.show(layout);
-
     });
 
     return KatumaApp;
