@@ -12,7 +12,8 @@ require.config({
         templates: "templates",
         "backbone.wreqr" : "libs/backbone.wreqr",
         "backbone.eventbinder" : "libs/backbone.eventbinder",
-        "backbone.babysitter" : "libs/backbone.babysitter"
+        "backbone.babysitter" : "libs/backbone.babysitter",
+        bootstrap:"libs/bootstrap.min"
     },
     shim : {
         jquery : {
@@ -33,6 +34,9 @@ require.config({
         },
         templates: {
             deps: ["handlebars"]
+        },
+        bootstrap:{
+            deps:["jquery"]
         }
     }
 });
@@ -43,5 +47,7 @@ define(function (require) {
 
     //start KatumaApp
     KatumaApp.start();
+
+    require("bootstrap");
 
 });

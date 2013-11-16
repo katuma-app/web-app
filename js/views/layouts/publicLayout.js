@@ -6,11 +6,14 @@
 define(function (require) {
 	require("marionette");
 	require("templates");
+	require("bootstrap");
+
+
 
 	var PublicLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.publicLayout,
 	    regions: {
-	        menu: "#topbar",
+	        topbar: "#topbar",
 	        content: "#content"
 	    }
 	});

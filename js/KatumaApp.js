@@ -22,6 +22,7 @@ define(function (require) {
         //create Layouts
         var layout = new PublicLayout();
         this.mainRegion.show(layout);
+
     });
 
     return KatumaApp;
