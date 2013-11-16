@@ -2,15 +2,17 @@
 
 require.config({
     urlArgs: "nocache=" + (new Date()).getTime(), // In order to expire
-    baseUrl: "js/libs",
+    baseUrl: "js",
     paths : {
-        backbone : "backbone",
-        underscore : "underscore",
-        jquery : "jquery-1.10.1",
-        marionette : "backbone.marionette.min",
-        "backbone.wreqr" : "backbone.wreqr",
-        "backbone.eventbinder" : "backbone.eventbinder",
-        "backbone.babysitter" : "backbone.babysitter"
+        backbone : "libs/backbone",
+        underscore : "libs/underscore",
+        jquery : "libs/jquery-1.10.1",
+        marionette : "libs/backbone.marionette.min",
+        handlebars: "libs/handlebars-v1.1.2",
+        templates: "templates",
+        "backbone.wreqr" : "libs/backbone.wreqr",
+        "backbone.eventbinder" : "libs/backbone.eventbinder",
+        "backbone.babysitter" : "libs/backbone.babysitter"
     },
     shim : {
         jquery : {
@@ -26,13 +28,20 @@ require.config({
         marionette:{
             deps:["backbone"]
         },
+        handlebars: {
+            exports : "Handlebars",
+        },
+        templates: {
+            deps: ["handlebars"]
+        }
     }
 });
 
 define(function (require) {
     // dependencies
-    require("marionette");
+    var KatumaApp = require("KatumaApp");
 
-    //start Katuma app
-    new Backbone.Marionette.Application();
+    //start KatumaApp
+    KatumaApp.start();
+
 });
