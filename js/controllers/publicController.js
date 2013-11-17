@@ -13,13 +13,13 @@ define(function (require) {
 			this.layout = new PublicLayout();
 
 			//layout events
-			this.layout.on("login", function(){ self.signIn(); });
+			this.layout.on("signIn", function(){ self.signIn(); });
 		},
 		getLayout: function(){
 			return this.layout;
 		},
 		signIn: function(){
-			window.location.hash = "#user";
+			this.trigger("signIn");
 		}
 	});
 

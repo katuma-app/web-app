@@ -77,7 +77,11 @@ define(function (require) {
         },
     });
 
-    new AppRouter();
+    var appRouter = new AppRouter();
+
+    KatumaApp.publicModule.on("signIn", function(){
+        appRouter.navigate("user", {trigger: true});
+    });
 
     Backbone.history.start();
 });

@@ -18,6 +18,11 @@ define(function (require) {
             KatumaApp.privateModule.stop();
             var controller = new PublicController();
             var layout = controller.getLayout();
+
+            controller.on("signIn", function(){
+                KatumaApp.publicModule.trigger("signIn");
+            });
+
             KatumaApp.mainRegion.show(layout);
         });
     });
