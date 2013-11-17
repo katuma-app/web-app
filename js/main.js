@@ -43,10 +43,35 @@ require.config({
 
 define(function (require) {
     // dependencies
-    var KatumaApp = require("KatumaApp");
+    require("marionette");
+    var KatumaApp = require("KatumaApp");    
 
-    //start KatumaApp
-    $( document ).ready(function(){
-        KatumaApp.start();
+    var AppRouter = Backbone.Marionette.AppRouter.extend({
+        openPage: function(pageNumber){
+            debugger;
+        },
+        routes:{
+            "create-account":"createAccount",
+            "*public": "public",
+        },
+        public : function(url){
+            if(url){
+                console.warn("Url '"+url+"' doesnt exist");
+            }else{
+                if(!url){url='/'}
+                console.log("Url '"+url+"' exist");
+            }
+            
+            KatumaApp.start();
+        },
+        createAccount: function(){
+            console.log("Url 'create-account' exist");
+            
+            KatumaApp.start();
+        }
     });
+
+    new AppRouter();
+
+    Backbone.history.start();
 });

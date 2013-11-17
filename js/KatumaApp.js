@@ -13,9 +13,9 @@ define(function (require) {
     });
     
     KatumaApp.on("initialize:after", function(){
-        if (Backbone.history){
+        /*if (Backbone.history){
             Backbone.history.start();
-        }
+        }*/
     });
 
     KatumaApp.on("initialize:before", function(){
