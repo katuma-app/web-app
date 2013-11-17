@@ -46,9 +46,14 @@ define(function (require) {
     require("marionette");
     var KatumaApp = require("KatumaApp");
 
+    //module
     var AppRouter = Backbone.Marionette.AppRouter.extend({
         routes:{
-            "create-account":"createAccount",
+            //private routes
+            "user":"user",
+            "user/*path":"user",
+
+            //public routes
             "*public": "public",
         },
         public : function(url){
@@ -60,13 +65,16 @@ define(function (require) {
                 console.log("Url '"+url+"' exist");
             }
             
-            KatumaApp.start();
+            KatumaApp.publicModule.start();
         },
-        createAccount: function(){
-            console.log("Url 'create-account' exist");
-            
-            KatumaApp.start();
-        }
+
+        user: function(url){
+            (url) ? url : url = "";
+
+            console.log("Url 'user/"+url+"' exist");
+
+            KatumaApp.privateModule.start();
+        },
     });
 
     new AppRouter();

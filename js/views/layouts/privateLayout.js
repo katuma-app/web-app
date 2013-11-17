@@ -11,18 +11,18 @@ define(function (require) {
 
 	//module
 	var TopbarView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicTopbarView,
+        template: Handlebars.templates.privateTopbarView,
         id:"topbarView"
     });
 
     var ContentView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicContentView,
+        template: Handlebars.templates.privateContentView,
         id:"contentView"
     });
 
 	var PublicLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.publicLayout,
-	    id:"publicLayout",
+	    id:"privateLayout",
 	    regions: {
 	        topbarRegion: "#topbarRegion",
 	        contentRegion: "#contentRegion"

@@ -3,24 +3,32 @@
 define(function (require) {
 	//dependencies
 	require("marionette");
-	var PublicLayout = require("views/layouts/publicLayout");
 
 	//module
 	var KatumaApp = new Backbone.Marionette.Application();
+    var publicModule = KatumaApp.module("publicModule");
+    var privateModule = KatumaApp.module("privateModule");
 
     KatumaApp.addRegions({
         mainRegion: "body",
     });
     
-    KatumaApp.on("initialize:after", function(){
-        /*if (Backbone.history){
-            Backbone.history.start();
-        }*/
+    publicModule.on("start", function(){
+        require(["controllers/publicController"], function (PublicController) {
+            KatumaApp.privateModule.stop();
+            var controller = new PublicController();
+            var layout = controller.getLayout();
+            KatumaApp.mainRegion.show(layout);
+        });
     });
 
-    KatumaApp.on("initialize:before", function(){
-        var layout = new PublicLayout();
-        this.mainRegion.show(layout);
+    privateModule.on("start", function(){
+        require(["controllers/privateController"], function (PrivateController) {
+            KatumaApp.publicModule.stop();
+            var controller = new PrivateController();
+            var layout = controller.getLayout();
+            KatumaApp.mainRegion.show(layout);
+        });
     });
 
     return KatumaApp;
