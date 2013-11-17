@@ -44,44 +44,8 @@ require.config({
 define(function (require) {
     // dependencies
     require("marionette");
-    var KatumaApp = require("KatumaApp");
+    var AppRouter = require("application/router");
 
-    //module
-    var AppRouter = Backbone.Marionette.AppRouter.extend({
-        routes:{
-            //private routes
-            "user":"user",
-            "user/*path":"user",
-
-            //public routes
-            "*public": "public",
-        },
-        public : function(url){
-            if(url){
-                console.warn("Url '"+url+"' doesnt exist");
-            }else{
-                (url) ? url : url = "/";
-            
-                console.log("Url '"+url+"' exist");
-            }
-            
-            KatumaApp.publicModule.start();
-        },
-
-        user: function(url){
-            (url) ? url : url = "";
-
-            console.log("Url 'user/"+url+"' exist");
-
-            KatumaApp.privateModule.start();
-        },
-    });
-
-    var appRouter = new AppRouter();
-
-    KatumaApp.publicModule.on("signIn", function(){
-        appRouter.navigate("user", {trigger: true});
-    });
-
+    new AppRouter();
     Backbone.history.start();
 });
