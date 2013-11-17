@@ -44,12 +44,9 @@ require.config({
 define(function (require) {
     // dependencies
     require("marionette");
-    var KatumaApp = require("KatumaApp");    
+    var KatumaApp = require("KatumaApp");
 
     var AppRouter = Backbone.Marionette.AppRouter.extend({
-        openPage: function(pageNumber){
-            debugger;
-        },
         routes:{
             "create-account":"createAccount",
             "*public": "public",
@@ -58,7 +55,8 @@ define(function (require) {
             if(url){
                 console.warn("Url '"+url+"' doesnt exist");
             }else{
-                if(!url){url='/'}
+                (url) ? url : url = "/";
+            
                 console.log("Url '"+url+"' exist");
             }
             
