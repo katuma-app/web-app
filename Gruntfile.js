@@ -1,16 +1,36 @@
 "use strict";
 
-module.exports = function(grunt)
-{
+module.exports = function(grunt) {
 	grunt.initConfig({
+		less: {
+			development: {
+				options: {
+					compress: true,
+					yuicompress: true,
+					optimization: 2
+				},
+				files: {
+					// target.css file: source.less file
+					"css/main.css": "css/main.less"
+				}
+			}
+		},
 		watch: {
 			scripts: {
 				files: ["js/templates/*.handlebars"],
 				tasks: ["shell:handlebars"],
 				options: {
-					spawn: false,
-				},
+					spawn: false
+				}
 			},
+			styles: {
+				// Which files to watch (all .less files recursively in the less directory)
+				files: ['css/*.less'],
+				tasks: ['less'],
+				options: {
+					nospawn: true
+				}
+			}
 		},
 		shell: {
 			handlebars: {
@@ -19,10 +39,11 @@ module.exports = function(grunt)
 		}
 	});
 
-	//load modules
+	// Load modules
 	grunt.loadNpmTasks('grunt-shell');
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	//resgistered task
-	grunt.registerTask("watcher", ["watch"]);
+	// Set default command
+	grunt.registerTask("default",["watch"]);
 };
