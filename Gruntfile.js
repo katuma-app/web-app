@@ -15,35 +15,37 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		watch: {
-			scripts: {
-				files: ["js/templates/*.handlebars"],
-				tasks: ["shell:handlebars"],
-				options: {
-					spawn: false
+		handlebars: {
+			compile: {
+				files: {
+					"js/templates.js": ["js/templates/*.handlebars"]
 				}
 			},
-			styles: {
-				// Which files to watch (all .less files recursively in the less directory)
-				files: ['css/*.less'],
-				tasks: ['less'],
-				options: {
-					nospawn: true
+			options: {
+				namespace: "Handlebars.templates",
+				// TODO I don't know why this is necessary.
+				// Looks as is if precompiler and interpreter
+				// don't work the same way.
+				processName: function(filePath) {
+					// input:  templates/name.handlebars
+					var pieces = filePath.split("/");
+					    pieces = pieces[pieces.length - 1].split(".");
+					// output: name
+					return pieces[0];
 				}
 			}
 		},
-		shell: {
-			handlebars: {
-				command: "handlebars js/templates/*.handlebars -f js/templates.js"
-			}
+		watch: {
+			files: ['css/*.less', 'js/templates/*.handlebars'],
+			tasks: ['less', 'handlebars']
 		}
 	});
 
 	// Load modules
-	grunt.loadNpmTasks('grunt-shell');
+	grunt.loadNpmTasks('grunt-contrib-handlebars');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Set default command
-	grunt.registerTask("default",["watch"]);
+	grunt.registerTask("default", ["watch"]);
 };
