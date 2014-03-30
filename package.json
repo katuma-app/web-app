@@ -1,10 +1,12 @@
 {
   "name": "Katuma",
-  "version": "0.0.0",
-  "author": "adrian ortuzar",
+  "version": "0.0.1",
+  "author": "Adrian Ortuzar",
+  "contributors": ["Naoise Golden"],
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3 ",
-    "grunt-shell": "~0.6.0"
+    "grunt-contrib-handlebars": "~0.7.0 ",
+    "grunt-contrib-less": "~0.11.0 ",
+    "grunt-contrib-watch": "~0.5.3 "
   }
 }
