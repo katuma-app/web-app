@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"jumbotron\">\n	<div class=\"container\">\n    	<h1>Welcome User</h1>\n    </div>\n</div>";
+  return "<div class=\"jumbotron\">\n	<div class=\"container\">\n    	<h1>Welcome User</h1>\n    </div>\n</div>\n";
   });
 templates['privateLayout'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];

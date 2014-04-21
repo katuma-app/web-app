@@ -5,16 +5,22 @@ module.exports = function(grunt)
 	grunt.initConfig({
 		watch: {
 			scripts: {
-				files: ["js/templates/*.handlebars"],
-				tasks: ["shell:handlebars"],
+				files: ["js/templates/PublicModule/*.handlebars", "js/templates/PrivateModule/*.handlebars"],
+				tasks: ["shell:gather_public_handlebar_files","shell:gather_private_handlebar_files", "shell:handlebars"],
 				options: {
 					spawn: false,
 				},
 			},
 		},
 		shell: {
+			gather_public_handlebar_files: {
+				command: "cp -f js/templates/PublicModule/* js/templates/_gather_handlebars"
+			},
+			gather_private_handlebar_files: {
+				command: "cp -f js/templates/PrivateModule/* js/templates/_gather_handlebars",
+			},
 			handlebars: {
-				command: "handlebars js/templates/*.handlebars -f js/templates.js"
+				command: "handlebars js/templates/_gather_handlebars/*.handlebars -f js/templates.js"
 			}
 		}
 	});
