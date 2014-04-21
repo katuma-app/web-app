@@ -7,12 +7,11 @@ define(function (require) {
 	var modulesEvents = function(KatumaApp){
 
 		KatumaApp.publicModule.on("start", function(){
-	        require(["controllers/publicController"], function (PublicController) {
-	            KatumaApp.privateModule.stop();
-	            var controller = new PublicController();
-	            var layout = controller.getLayout();
+	        require(["views/layouts/publicLayout"], function (PublicLayout) {
+	            KatumaApp.privateModule.stop();	            
+	            var layout = new PublicLayout();
 
-	            controller.on("signIn", function(){
+	            layout.on("signIn", function(){
 	                KatumaApp.publicModule.trigger("signIn");
 	            });
 
@@ -21,10 +20,9 @@ define(function (require) {
 	    });
 
 	    KatumaApp.privateModule.on("start", function(){
-	        require(["controllers/privateController"], function (PrivateController) {
-	            KatumaApp.publicModule.stop();
-	            var controller = new PrivateController();
-	            var layout = controller.getLayout();
+	        require(["views/layouts/privateLayout"], function (PrivateLayout) {
+	            KatumaApp.publicModule.stop();	            
+	            var layout = new PrivateLayout();	            
 	            KatumaApp.mainRegion.show(layout);
 	        });
 	    });
