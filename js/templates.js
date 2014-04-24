@@ -7,7 +7,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"jumbotron\">\n	<div class=\"container\">\n    	<h1>Welcome User</h1>\n    </div>\n</div>";
+  return "<div class=\"jumbotron\">\n	<div class=\"container\">\n    	<h1>Welcome User</h1>\n    </div>\n</div>\n";
   });
 
 this["Handlebars"]["templates"]["privateLayout"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
