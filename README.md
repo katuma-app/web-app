@@ -1,12 +1,8 @@
-# katuma_webApp
+# katuma Web Application
 
 Javascrip, Html and Css application for browsers.
 
 # How to install
-
-You need to have Grunt installed:
-
-    $ npm install -g grunt-cli
 
 Clone the repository:
 
@@ -16,12 +12,16 @@ Install the dependencies:
 
     $ cd katuma_webApp
     $ npm install
-    
+    $ bower install
+
+Run grunt "watch" task to compile handlebar template and less css.
+
+    $ grunt watch
 
 ## Frameworks and tools that we are using:
 
-- Marionette http://marionettejs.com/#download
 - Backbone http://backbonejs.org/
+- Marionette http://marionettejs.com/#download
 - Bootstrap http://getbootstrap.com/
 - Less.css http://lesscss.org/
 - Grunt.js http://gruntjs.com/
