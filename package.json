@@ -1,5 +1,9 @@
 {
   "name": "Katuma",
+  "repository" :{ 
+    "type" : "git",
+    "url" : "https://github.com/coopdevs/katuma-web-app"
+  },
   "version": "0.0.1",
   "author": "Adrian Ortuzar",
   "contributors": ["Naoise Golden"],
