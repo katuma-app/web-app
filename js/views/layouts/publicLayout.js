@@ -34,9 +34,8 @@ define(function (require) {
 			this.topbarRegion.show(topbarView);
 			this.contentRegion.show(contentView);
 
-			require(["libs/i18next-1.7.2.min"], function () {
-				require(["libs/LandingPage"], function () {});
-			});
+			//TODO:we have to load the i18next and the LandingPage before the templates rendering, because this file are not prepare to be AMD. The file LandingPage has to be refactor and apply the logic of the translation and the email to the public controller. Untis this will be done this is the solution.
+			require(["libs/i18next-1.7.2.min", "libs/LandingPage"], function () {});
 	    },
 	    events:{
 			"click .signIn": function (event) {
