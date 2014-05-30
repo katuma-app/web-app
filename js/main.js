@@ -1,5 +1,3 @@
-"use strict";
-
 require.config({
     urlArgs: "nocache=" + (new Date()).getTime(), // In order to expire
     baseUrl: "js",
@@ -41,6 +39,8 @@ require.config({
 });
 
 define(function (require) {
+    "use strict";
+    
     // dependencies
     require("marionette");
     var AppRouter = require("application/router");
