@@ -1,6 +1,6 @@
-"use strict";
-
 define(function (require) {
+    "use strict";
+    
     // dependencies
     require("marionette");
     var KatumaApp = require("application/KatumaApp");
