@@ -51,9 +51,6 @@ module.exports = function(grunt) {
 				files: ["js/templates/PublicModule/*.handlebars", "js/templates/PrivateModule/*.handlebars"],
 				tasks: ["shell:gather_public_handlebar_files","shell:gather_private_handlebar_files", "shell:handlebars"]
 			}
-		/*watch: {
-			files: ['css/*.less', 'js/templates/*.handlebars'],
-			tasks: ['less', 'handlebars']*/
 		}
 	});
 
