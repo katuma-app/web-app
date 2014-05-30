@@ -33,6 +33,10 @@ define(function (require) {
 			
 			this.topbarRegion.show(topbarView);
 			this.contentRegion.show(contentView);
+
+			require(["libs/i18next-1.7.2.min"], function () {
+				require(["libs/LandingPage"], function () {});
+			});
 	    },
 	    events:{
 			"click .signIn": function (event) {
