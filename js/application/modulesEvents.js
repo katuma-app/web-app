@@ -12,7 +12,7 @@ define(function (require) {
 			var self =  this;
 			KatumaApp.publicModule.router = new PublicRouter(this, KatumaApp);
 
-	        require(["views/layouts/publicLayout"], function (PublicLayout) {
+	        require(["Modules/Public/Views/publicLayout"], function (PublicLayout) {
 	            KatumaApp.privateModule.stop();	            
 	            
 	            self.layout = new PublicLayout({
@@ -40,7 +40,7 @@ define(function (require) {
 			//start router
 			KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
 
-			require(["views/layouts/privateLayout"], function (PrivateLayout) {
+			require(["Modules/Private/Views/privateLayout"], function (PrivateLayout) {
 				self.layout = new PrivateLayout({
 					user: userModel,
 					url: self.url,
