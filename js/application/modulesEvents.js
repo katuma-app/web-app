@@ -3,8 +3,8 @@ define(function (require) {
 	
 	//dependencies
 	require("marionette");
-	var PrivateRouter = require("application/PrivateRouter");
-	var PublicRouter = require("application/PublicRouter");
+	var PrivateRouter = require("Modules/Private/PrivateRouter");
+	var PublicRouter = require("Modules/Public/PublicRouter");
 	
 	var modulesEvents = function(KatumaApp){
 
