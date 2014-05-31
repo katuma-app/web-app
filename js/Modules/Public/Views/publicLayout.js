@@ -13,7 +13,14 @@ define(function (require) {
 	//module
 	var TopbarView = Backbone.Marionette.ItemView.extend({
         template: Handlebars.templates.publicTopbarView,
-        id:"topbarView"
+        id:"topbarView",
+        getFormData: function(){
+        	var form = this.$('form');
+			return {
+				"email": form.find("[type=email]").val(),
+				"password": form.find("[type=password]").val()
+			};
+        }
     });
 
     var WelcomeView = Backbone.Marionette.ItemView.extend({
@@ -29,7 +36,25 @@ define(function (require) {
 
     var CreateUserView = Backbone.Marionette.ItemView.extend({
         template: Handlebars.templates.createUserView,
-        id:"createUserView"
+        id:"createUserView",
+        onShow:function(){
+        	this.errorDiv = this.$(".error");
+        },
+        getFormData: function(){
+        	var form = this.$('form');
+        	return {
+		        "email": form.find("#email").val(),
+		        "name": form.find("#name").val(),
+		        "password": form.find("#password").val(),
+		        "password_confirmation": form.find("#passwordConfirmation").val()
+		    };
+        },
+        removeErrors: function(){
+        	//remove error element layout
+		    var errorDiv = this.errorDiv;
+		    	errorDiv.hide();
+		    	errorDiv.empty();
+        }
     });
 
 	var PublicLayout = Backbone.Marionette.Layout.extend({
@@ -78,29 +103,23 @@ define(function (require) {
 		createUser: function(event){
 			event.preventDefault();
 			var self = this;
-			var form = $(event.target).parent();
-			var userData = {
-		        "email": form.find("#email").val(),
-		        "name": form.find("#name").val(),
-		        "password": form.find("#password").val(),
-		        "password_confirmation": form.find("#passwordConfirmation").val()
-		    };
-
-		    //remove error element layout
-		    var errorDiv = this.$(".error");
-		    	errorDiv.hide();
-		    	errorDiv.empty();
+			var createAccountView = this.contentRegion.currentView;
+			var userData = createAccountView.getFormData();
+			createAccountView.removeErrors();
 
 		    var createUserOptions = {
 		    	userData: userData,
 		    	error: function(error){			        
 					if(error.responseJSON){
 		                var errors = error.responseJSON.errors;
-		                errorDiv.show();
+		                var errorDiv = createAccountView.errorDiv;
+		                
 		                $.each(errors, function(index, value){
 		                    console.log("ERROR "+(index+1)+": " + value);
 		                    errorDiv.append("<p class='bg-danger'>"+value+"</p>");
 						});
+
+						errorDiv.show();
 		            }
 				},
 				success: function(response){
@@ -115,11 +134,8 @@ define(function (require) {
 		},
 		signIn: function(event){
 			var self = this;
-			var form = $(event.target).parent();
-			var data = {
-				"email": form.find("[type=email]").val(),
-				"password": form.find("[type=password]").val()
-			};
+			var topbarView = this.topbarRegion.currentView;
+			var data = topbarView.getFormData();
 			
 			var options = {
 				data:data,
