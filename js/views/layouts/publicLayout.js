@@ -1,9 +1,9 @@
-"use strict";
-
 /*
 ** publicLayout for user that are not register in the app. 
  */
 define(function (require) {
+	"use strict";
+
 	//dependecies
 	require("marionette");
 	require("templates");
@@ -17,7 +17,13 @@ define(function (require) {
 
     var ContentView = Backbone.Marionette.ItemView.extend({
         template: Handlebars.templates.publicContentView,
-        id:"contentView"
+        id:"contentView",
+        onShow: function(){
+        	//TODO:we have to load the i18next and the LandingPage before the templates rendering, because this file are not prepare to be AMD. The file LandingPage has to be refactor and apply the logic of the translation and the email to the public controller. Untis this will be done this is the solution.
+			require(["libs/i18next-1.7.2.min"], function () {
+				require(["libs/LandingPage"], function(){});
+			});
+        }
     });
 
 	var PublicLayout = Backbone.Marionette.Layout.extend({
@@ -33,9 +39,6 @@ define(function (require) {
 			
 			this.topbarRegion.show(topbarView);
 			this.contentRegion.show(contentView);
-
-			//TODO:we have to load the i18next and the LandingPage before the templates rendering, because this file are not prepare to be AMD. The file LandingPage has to be refactor and apply the logic of the translation and the email to the public controller. Untis this will be done this is the solution.
-			require(["libs/i18next-1.7.2.min", "libs/LandingPage"], function () {});
 	    },
 	    events:{
 			"click .signIn": function (event) {
