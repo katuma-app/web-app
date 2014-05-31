@@ -12,17 +12,18 @@ define(function (require) {
 
 			//load dependencies Public module
 	        require([
-	        	"Modules/Public/Layouts/PublicLayout", 
-	        	"Modules/Public/PublicRouter"], 
-	        	function (PublicLayout, PublicRouter) {
+        	"Modules/Public/Layouts/PublicLayout", 
+        	"Modules/Public/PublicRouter"], 
+        	function (PublicLayout, PublicRouter) {
 
+	        	//stop private module
+	            KatumaApp.privateModule.stop();
+	            
 	        	//start public router
 				KatumaApp.publicModule.router = new PublicRouter(self, KatumaApp);
+				//start the backbone history because we stoped when we stop the private module
 				Backbone.history.start();
-				KatumaApp.publicModule.router.navigate(url,{trigger: true});
-	        	
-	        	//stop private module
-	            KatumaApp.privateModule.stop();	            
+				KatumaApp.publicModule.router.navigate(url,{trigger: true});	            
 	            
 	            //create public layout and show it
 	            self.layout = new PublicLayout({
@@ -57,9 +58,9 @@ define(function (require) {
 			if (userModel) {
 				//load dependencies Private module
 				require([
-					"Modules/Private/Layouts/PrivateLayout",
-					"Modules/Private/PrivateRouter"],
-					function (PrivateLayout, PrivateRouter) {
+				"Modules/Private/Layouts/PrivateLayout",
+				"Modules/Private/PrivateRouter"],
+				function (PrivateLayout, PrivateRouter) {
 
 					//start router
 					KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
