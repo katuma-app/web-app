@@ -1,5 +1,13 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['createUserView'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div id=\"createAccount\">\n	<div class=\"container\">\n		<h1>Create account</h1>\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"User name\" >\n			</div>\n			<div class=\"form-group\">\n				<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Enter email\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n			</div>\n			<div class=\"error\" hidden></div>\n			</p>\n			<button id=\"createUser\" type=\"submit\" class=\"btn btn-primary\">Create Account</button>\n		</form>\n	</div>\n</div>";
+  });
 templates['privateContentView'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -38,7 +46,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"topbarRegion\" class=\"navbar navbar-inverse navbar-fixed-top\"></div>\n<div id=\"contentRegion\"></div>";
+  return "<div id=\"topbarRegion\" class=\"navbar navbar-inverse navbar-fixed-top\"></div>\n<div id=\"publicContentRegion\"></div>";
   });
 templates['publicTopbarView'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -46,6 +54,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"container\">\n    <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n        </button>\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n        <ul class=\"nav navbar-nav\">\n            <li>\n                <a href=\"#\">Sign up</a>\n            </li>\n        </ul>\n        <form class=\"navbar-form navbar-right\">\n            <div class=\"form-group\">\n                <input type=\"text\" placeholder=\"Email\" class=\"form-control\">\n            </div>\n            <div class=\"form-group\">\n                <input type=\"password\" placeholder=\"Password\" class=\"form-control\">\n            </div>\n            <button id=\"\" type=\"submit\" class=\"btn btn-success signIn\">Sign in</button>\n        </form>\n    </div><!--/.navbar-collapse -->\n</div>";
+  return "<div class=\"container\">\n    <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n        </button>\n    </div>\n\n    <div class=\"navbar-collapse collapse\">\n        <ul class=\"nav navbar-nav\">\n            <li>\n                <a id=\"leftButton\" href=\"#createUser\">Sign up</a>\n            </li>\n        </ul>\n        <form class=\"navbar-form navbar-right\">\n            <div class=\"form-group\">\n                <input type=\"text\" placeholder=\"Email\" class=\"form-control\">\n            </div>\n            <div class=\"form-group\">\n                <input type=\"password\" placeholder=\"Password\" class=\"form-control\">\n            </div>\n            <button id=\"\" type=\"submit\" class=\"btn btn-success signIn\">Sign in</button>\n        </form>\n    </div><!--/.navbar-collapse -->\n</div>";
   });
 })();
