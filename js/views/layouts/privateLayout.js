@@ -1,9 +1,9 @@
-"use strict";
-
 /*
 ** publicLayout for user that are not register in the app. 
  */
 define(function (require) {
+	"use strict";
+
 	//dependecies
 	require("marionette");
 	require("templates");
@@ -20,7 +20,7 @@ define(function (require) {
         id:"contentView"
     });
 
-	var PublicLayout = Backbone.Marionette.Layout.extend({
+	var PrivateLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.publicLayout,
 	    id:"privateLayout",
 	    regions: {
@@ -35,12 +35,12 @@ define(function (require) {
 			this.contentRegion.show(contentView);
 	    },
 	    events:{
-			"click .signIn": function (event) {
+			"click .signOut": function (event) {
 				event.preventDefault();
-				this.trigger("login");
+				this.trigger("logout");
 			}
 		}
 	});
 
-	return PublicLayout;
+	return PrivateLayout;
 });
