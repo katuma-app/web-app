@@ -56,7 +56,7 @@ define(function (require) {
 
 			//we are going to load the private layout if the user model exit, if not we trigger logOut
 			if (userModel) {
-				require(["Modules/Private/Views/privateLayout"], function (PrivateLayout) {
+				require(["Modules/Private/Layouts/PrivateLayout"], function (PrivateLayout) {
 					//create private layout and show it
 					self.layout = new PrivateLayout({
 						user: userModel,
