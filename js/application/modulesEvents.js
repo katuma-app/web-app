@@ -3,8 +3,6 @@ define(function (require) {
 	
 	//dependencies
 	require("marionette");
-	var PrivateRouter = require("Modules/Private/PrivateRouter");
-	var PublicRouter = require("Modules/Public/PublicRouter");
 	
 	var modulesEvents = function(KatumaApp){
 
@@ -12,13 +10,16 @@ define(function (require) {
 			var url = options.url;
 			var self =  this;
 
-			//start public router
-			KatumaApp.publicModule.router = new PublicRouter(this, KatumaApp);
-			Backbone.history.start();
-			KatumaApp.publicModule.router.navigate(url,{trigger: true});
+			//load dependencies Public module
+	        require([
+	        	"Modules/Public/Layouts/PublicLayout", 
+	        	"Modules/Public/PublicRouter"], 
+	        	function (PublicLayout, PublicRouter) {
 
-			//load public layout
-	        require(["Modules/Public/Layouts/PublicLayout"], function (PublicLayout) {
+	        	//start public router
+				KatumaApp.publicModule.router = new PublicRouter(self, KatumaApp);
+				Backbone.history.start();
+				KatumaApp.publicModule.router.navigate(url,{trigger: true});
 	        	
 	        	//stop private module
 	            KatumaApp.privateModule.stop();	            
@@ -54,7 +55,12 @@ define(function (require) {
 
 			//we are going to load the private layout if the user model exit, if not we trigger logOut
 			if (userModel) {
-				require(["Modules/Private/Layouts/PrivateLayout"], function (PrivateLayout) {
+				//load dependencies Private module
+				require([
+					"Modules/Private/Layouts/PrivateLayout",
+					"Modules/Private/PrivateRouter"],
+					function (PrivateLayout, PrivateRouter) {
+
 					//start router
 					KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
 					KatumaApp.privateModule.router.navigate(url, {trigger: true});
@@ -80,7 +86,10 @@ define(function (require) {
 				KatumaApp.privateModule.trigger("logOut");
 			}
 	    });
-
+		
+		/**
+		 * When the private module stop clean the browser history and restart again in public module
+		 */
 		KatumaApp.privateModule.on("stop", function(){
 			Backbone.history.stop();
 		});
