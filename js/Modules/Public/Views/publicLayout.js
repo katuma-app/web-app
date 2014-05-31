@@ -8,6 +8,7 @@ define(function (require) {
 	require("marionette");
 	require("templates");
 	require("bootstrap");
+	var User = require("models/User");
 
 	//module
 	var TopbarView = Backbone.Marionette.ItemView.extend({
@@ -39,10 +40,16 @@ define(function (require) {
 	        contentRegion: "#publicContentRegion"
 	    },
 	    onShow: function(){
+	    	//set variables
+	    	var url = this.options.url;
+	    	this.ServerManagment = this.options.ServerManagment;
+
+	    	//render top bar region
 			var topbarView = new TopbarView();
 			this.topbarRegion.show(topbarView);
 
-			this.navigate(this.options.url);
+			//render the content region
+			this.navigate(url);
 	    },
 	    navigate: function(url){
 			var contentView;
@@ -59,7 +66,7 @@ define(function (require) {
 				contentView = new CreateUserView();
 
 				leftButton
-					.attr("href","#user")
+					.attr("href","#")
 					.text("< Back");
 			}
 			this.contentRegion.show(contentView);
@@ -68,8 +75,47 @@ define(function (require) {
 			"click .signIn": function (event) {
 				event.preventDefault();
 				this.trigger("signIn");
-			}
-		}
+			},
+			"click #createUser":"createUser"
+		},
+		createUser: function(event){
+			event.preventDefault();
+			var self = this;
+			var form = $(event.target).parent();
+			var userData = {
+		        "email": form.find("#email").val(),
+		        "name": form.find("#name").val(),
+		        "password": form.find("#password").val(),
+		        "password_confirmation": form.find("#passwordConfirmation").val()
+		    };
+
+		    //remove error element layout
+		    var errorDiv = this.$(".error");
+		    	errorDiv.hide();
+		    	errorDiv.empty();
+
+		    var createUserOptions = {
+		    	userData: userData,
+		    	error: function(error){			        
+					if(error.responseJSON){
+		                var errors = error.responseJSON.errors;
+		                errorDiv.show();
+		                $.each(errors, function(index, value){
+		                    console.log("ERROR "+(index+1)+": " + value);
+		                    errorDiv.append("<p class='bg-danger'>"+value+"</p>");
+						});
+		            }
+				},
+				success: function(response){
+					var userData = response.users[0];					
+					var user = new User(userData);
+					self.trigger("createUser", user);
+				}
+		    };
+
+		    //call to the server
+		    this.ServerManagment.createUser(createUserOptions);
+		},
 	});
 
 	return PublicLayout;
