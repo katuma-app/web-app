@@ -28,9 +28,8 @@ define(function (require) {
 
 	            //layout events
 	            self.layout.on("signIn", function(userModel){
-	            	//TODO: pass the user model and save in the app
-	            	//KatumaApp.userModel = userModel;
-
+	            	KatumaApp.userModel = userModel;
+	            	
 	            	KatumaApp.publicModule.stop();
 					KatumaApp.privateModule.start();
 					//call to the router to set the url and custom initialization

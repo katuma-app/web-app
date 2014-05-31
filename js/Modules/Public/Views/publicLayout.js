@@ -72,10 +72,7 @@ define(function (require) {
 			this.contentRegion.show(contentView);
 		},
 	    events:{
-			"click .signIn": function (event) {
-				event.preventDefault();
-				this.trigger("signIn");
-			},
+			"click .signIn": "signIn",
 			"click #createUser":"createUser"
 		},
 		createUser: function(event){
@@ -116,6 +113,52 @@ define(function (require) {
 		    //call to the server
 		    this.ServerManagment.createUser(createUserOptions);
 		},
+		signIn: function(event){
+			var self = this;
+			var form = $(event.target).parent();
+			var data = {
+				"email": form.find("[type=email]").val(),
+				"password": form.find("[type=password]").val()
+			};
+			
+			var options = {
+				data:data,
+				error: function(session, error, request){
+					console.warn("ERROR in Sign In:"+error.statusText);
+
+		            session.destroy();
+				},
+				success: function(sessionModel, attributes, request){
+					self.getUserData(sessionModel);
+				}
+			};
+
+			this.ServerManagment.createSession(options);
+		},
+		getUserData: function(sessionModel){
+			var self = this;
+
+			var options = {
+				sessionModel: sessionModel,
+				error: function(session, error, request){
+					if(error.responseJSON){
+		                var errors = error.responseJSON.errors;
+		                $.each(errors, function(index, value){
+		                    console.log("ERROR "+(index+1)+": " + value);
+		                });
+		            }
+
+		            session.destroy();
+				},
+				success: function(response){
+					var userData = response.users[0];				
+					var userModel = new User(userData);
+					self.trigger("signIn", userModel);
+				}
+			};
+
+			this.ServerManagment.getUser(options);
+		}
 	});
 
 	return PublicLayout;

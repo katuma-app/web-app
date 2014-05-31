@@ -13,9 +13,6 @@ define(function (require) {
 		/**
 		 * [createUser method that is going to create a user calling to katuma server]
 		 * @param  {[object]} options [properties for the ajax call:]
-		 */
-		createUser:function(options){
-			/**
 			 * [options example]
 			 	var options = {
 			 		userData: {
@@ -31,7 +28,8 @@ define(function (require) {
 						//do something in the callback
 			 		}
 		    	};
-			 */
+		**/
+		createUser:function(options){
 			$.ajax({
 		        url: url+"users",
 		        type: "POST",
@@ -39,6 +37,46 @@ define(function (require) {
 				data: {
 		        	"user":options.userData
 		        },
+		        error: options.error,
+				success: options.success
+		    });
+		},
+
+		/**
+		 * [createSession description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
+		createSession:function(options){
+			var Session = Backbone.Model.extend({
+				url:url+"session",
+			});
+
+			var session = new Session(options.data);
+
+			session.save(null,{
+				error: options.error,
+				success: options.success
+			});
+
+			return session;
+		},
+
+		/**
+		 * [getBootstrapData description]
+		 * @return {[type]} [description]
+		 */
+		getUser:function(options){
+			var sessionModel = options.sessionModel;
+			
+			$.ajax({
+		        url: url+"users/"+sessionModel.get("user_id"),
+		        type: "GET",
+				dataType: "json",
+				headers:{
+					"Content-Type":"application/json",
+					"Authorization": "Token "+sessionModel.get("access_token")+""
+				},
 		        error: options.error,
 				success: options.success
 		    });
