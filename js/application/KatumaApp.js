@@ -4,12 +4,14 @@ define(function (require) {
 	//dependencies
 	require("marionette");
     var modulesEvent = require("application/modulesEvents");
+    var ServerManagment = require("Modules/Commons/ServerManagment");
 
 	//startApp
 	var KatumaApp = new Backbone.Marionette.Application();
 
     //share variables
     KatumaApp.userModel = null;
+    KatumaApp.ServerManagment = ServerManagment;
     
     //add region
     KatumaApp.addRegions({
