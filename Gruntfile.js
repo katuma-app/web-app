@@ -48,8 +48,8 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			scripts: {
-				files: ["js/templates/PublicModule/*.handlebars", "js/templates/PrivateModule/*.handlebars"],
-				tasks: ["shell:gather_public_handlebar_files","shell:gather_private_handlebar_files", "shell:handlebars"]
+				files: ["js/templates/PublicModule/*.handlebars", "js/templates/PrivateModule/*.handlebars","css/*.less"],
+				tasks: ["shell:gather_public_handlebar_files","shell:gather_private_handlebar_files", "shell:handlebars","less"]
 			}
 		}
 	});
