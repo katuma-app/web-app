@@ -10,53 +10,12 @@ define(function (require) {
 	require("bootstrap");
 	var User = require("models/User");
 
-	//module
-	var TopbarView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicTopbarView,
-        id:"topbarView",
-        getFormData: function(){
-        	var form = this.$('form');
-			return {
-				"email": form.find("[type=email]").val(),
-				"password": form.find("[type=password]").val()
-			};
-        }
-    });
+	//views
+	var TopbarView = require("Modules/Public/Views/TopbarView");
+	var WelcomeView = require("Modules/Public/Views/WelcomeView");
+	var CreateUserView = require("Modules/Public/Views/CreateUserView");
 
-    var WelcomeView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicContentView,
-        id:"welcomeView",
-        onShow: function(){
-        	//TODO:we have to load the i18next and the LandingPage before the templates rendering, because this file are not prepare to be AMD. The file LandingPage has to be refactor and apply the logic of the translation and the email to the public controller. Untis this will be done this is the solution.
-			require(["libs/i18next-1.7.2.min"], function () {
-				require(["libs/LandingPage"], function(){});
-			});
-        }
-    });
-
-    var CreateUserView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.createUserView,
-        id:"createUserView",
-        onShow:function(){
-        	this.errorDiv = this.$(".error");
-        },
-        getFormData: function(){
-        	var form = this.$('form');
-        	return {
-		        "email": form.find("#email").val(),
-		        "name": form.find("#name").val(),
-		        "password": form.find("#password").val(),
-		        "password_confirmation": form.find("#passwordConfirmation").val()
-		    };
-        },
-        removeErrors: function(){
-        	//remove error element layout
-		    var errorDiv = this.errorDiv;
-		    	errorDiv.hide();
-		    	errorDiv.empty();
-        }
-    });
-
+    //module
 	var PublicLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.publicLayout,
 	    id:"publicLayout",

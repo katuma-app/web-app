@@ -15,7 +15,7 @@ define(function (require) {
 			KatumaApp.publicModule.router = new PublicRouter(this, KatumaApp);
 
 			//load public layout
-	        require(["Modules/Public/Views/publicLayout"], function (PublicLayout) {
+	        require(["Modules/Public/Layouts/PublicLayout"], function (PublicLayout) {
 	        	//stop private module
 	            KatumaApp.privateModule.stop();	            
 	            
@@ -29,7 +29,7 @@ define(function (require) {
 	            //layout events
 	            self.layout.on("signIn", function(userModel){
 	            	KatumaApp.userModel = userModel;
-	            	
+
 	            	KatumaApp.publicModule.stop();
 					KatumaApp.privateModule.start();
 					//call to the router to set the url and custom initialization
