@@ -10,11 +10,16 @@ define(function (require) {
 
 		KatumaApp.publicModule.on("start", function(){
 			var self =  this;
+
+			//start public router
 			KatumaApp.publicModule.router = new PublicRouter(this, KatumaApp);
 
+			//load public layout
 	        require(["Modules/Public/Views/publicLayout"], function (PublicLayout) {
+	        	//stop private module
 	            KatumaApp.privateModule.stop();	            
 	            
+	            //create public layout and show it
 	            self.layout = new PublicLayout({
 	            	url: self.url,
 	            	ServerManagment: KatumaApp.ServerManagment
@@ -53,6 +58,7 @@ define(function (require) {
 			//we are going to load the private layout if the user model exit, if not we trigger logOut
 			if (userModel) {
 				require(["Modules/Private/Views/privateLayout"], function (PrivateLayout) {
+					//create private layout and show it
 					self.layout = new PrivateLayout({
 						user: userModel,
 						url: self.url,
@@ -60,6 +66,7 @@ define(function (require) {
 					});
 					KatumaApp.mainRegion.show(self.layout);
 
+					//retrieve private layout events
 					self.layout.on("logout", function(){
 						KatumaApp.userModel = null;
 						
