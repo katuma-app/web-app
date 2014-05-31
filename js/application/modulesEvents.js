@@ -8,14 +8,18 @@ define(function (require) {
 	
 	var modulesEvents = function(KatumaApp){
 
-		KatumaApp.publicModule.on("start", function(){
+		KatumaApp.publicModule.on("start", function(options){
+			var url = options.url;
 			var self =  this;
 
 			//start public router
 			KatumaApp.publicModule.router = new PublicRouter(this, KatumaApp);
+			Backbone.history.start();
+			KatumaApp.publicModule.router.navigate(url,{trigger: true});
 
 			//load public layout
 	        require(["Modules/Public/Layouts/PublicLayout"], function (PublicLayout) {
+	        	
 	        	//stop private module
 	            KatumaApp.privateModule.stop();	            
 	            
@@ -31,32 +35,30 @@ define(function (require) {
 	            	KatumaApp.userModel = userModel;
 
 	            	KatumaApp.publicModule.stop();
-					KatumaApp.privateModule.start();
-					//call to the router to set the url and custom initialization
-					KatumaApp.privateModule.router.navigate("user", {trigger: true});
+					KatumaApp.privateModule.start({url:"user"});
 	            });
 
 	            self.layout.on("createUser", function(userModel){
 	            	KatumaApp.userModel = userModel;
 
 					KatumaApp.publicModule.stop();
-					KatumaApp.privateModule.start();
-					//call to the router to set the url and custom initialization
-					KatumaApp.privateModule.router.navigate("user", {trigger: true});
+					KatumaApp.privateModule.start({url:"user"});
 	            });
 	        });
 	    });
 
-	    KatumaApp.privateModule.on("start", function(){
+	    KatumaApp.privateModule.on("start", function(options){
+	    	var url = options.url;
 	    	var userModel = KatumaApp.userModel;
 			var self = this;
-
-			//start router
-			KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
 
 			//we are going to load the private layout if the user model exit, if not we trigger logOut
 			if (userModel) {
 				require(["Modules/Private/Layouts/PrivateLayout"], function (PrivateLayout) {
+					//start router
+					KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
+					KatumaApp.privateModule.router.navigate(url, {trigger: true});
+
 					//create private layout and show it
 					self.layout = new PrivateLayout({
 						user: userModel,
@@ -70,9 +72,7 @@ define(function (require) {
 						KatumaApp.userModel = null;
 						
 						KatumaApp.privateModule.stop();
-						KatumaApp.publicModule.start();
-						//call to the router to set the url and custom initialization
-						KatumaApp.publicModule.router.navigate("",{trigger: true});
+						KatumaApp.publicModule.start({url:""});
 					});
 				});
 			}
@@ -81,10 +81,13 @@ define(function (require) {
 			}
 	    });
 
+		KatumaApp.privateModule.on("stop", function(){
+			Backbone.history.stop();
+		});
+
 	    //public module initializer
 		KatumaApp.module("publicModule", function(publicModule, KatumaApp){
-            KatumaApp.publicModule.start();
-	        Backbone.history.start();
+            KatumaApp.publicModule.start({url:""});
 	    });
 	};
 
