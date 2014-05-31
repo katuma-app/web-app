@@ -11,10 +11,19 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 templates['privateContentView'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  return "<div class=\"jumbotron\">\n	<div class=\"container\">\n    	<h1>Welcome User</h1>\n    </div>\n</div>\n";
+  buffer += "<div>\n	<div class=\"jumbotron\">\n		<div class=\"container\">\n	    	<h1>Welcome ";
+  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</h1>\n	    	<p>\n	    		<b>Email<b/>: ";
+  if (stack1 = helpers.email) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = (depth0 && depth0.email); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\n	    	</p>\n	    </div>\n	</div>\n</div>\n";
+  return buffer;
   });
 templates['privateLayout'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];

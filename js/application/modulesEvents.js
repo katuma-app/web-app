@@ -16,7 +16,8 @@ define(function (require) {
 	            KatumaApp.privateModule.stop();	            
 	            
 	            self.layout = new PublicLayout({
-	            	url: self.url
+	            	url: self.url,
+	            	ServerManagment: KatumaApp.ServerManagment
 	            });
 	            KatumaApp.mainRegion.show(self.layout);
 
@@ -26,6 +27,15 @@ define(function (require) {
 	            	//KatumaApp.userModel = userModel;
 
 	            	KatumaApp.publicModule.stop();
+					KatumaApp.privateModule.start();
+					//call to the router to set the url and custom initialization
+					KatumaApp.privateModule.router.navigate("user", {trigger: true});
+	            });
+
+	            self.layout.on("createUser", function(userModel){
+	            	KatumaApp.userModel = userModel;
+
+					KatumaApp.publicModule.stop();
 					KatumaApp.privateModule.start();
 					//call to the router to set the url and custom initialization
 					KatumaApp.privateModule.router.navigate("user", {trigger: true});
@@ -40,22 +50,29 @@ define(function (require) {
 			//start router
 			KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
 
-			require(["Modules/Private/Views/privateLayout"], function (PrivateLayout) {
-				self.layout = new PrivateLayout({
-					user: userModel,
-					url: self.url,
-				});
-				KatumaApp.mainRegion.show(self.layout);
+			//we are going to load the private layout if the user model exit, if not we trigger logOut
+			if (userModel) {
+				require(["Modules/Private/Views/privateLayout"], function (PrivateLayout) {
+					self.layout = new PrivateLayout({
+						user: userModel,
+						url: self.url,
+		            	ServerManagment: KatumaApp.ServerManagment
+					});
+					KatumaApp.mainRegion.show(self.layout);
 
-				self.layout.on("logout", function(){
-					KatumaApp.userModel = null;
-					
-					KatumaApp.privateModule.stop();
-					KatumaApp.publicModule.start();
-					//call to the router to set the url and custom initialization
-					KatumaApp.publicModule.router.navigate("",{trigger: true});
-	            });
-			});
+					self.layout.on("logout", function(){
+						KatumaApp.userModel = null;
+						
+						KatumaApp.privateModule.stop();
+						KatumaApp.publicModule.start();
+						//call to the router to set the url and custom initialization
+						KatumaApp.publicModule.router.navigate("",{trigger: true});
+					});
+				});
+			}
+			else{
+				KatumaApp.privateModule.trigger("logOut");
+			}
 	    });
 
 	    //public module initializer
