@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"createAccount\">\n	<div class=\"container\">\n		<h1>Create account</h1>\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"User name\" >\n			</div>\n			<div class=\"form-group\">\n				<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Enter email\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n			</div>\n			<div class=\"error\" hidden></div>\n			</p>\n			<button id=\"createUser\" type=\"submit\" class=\"btn btn-primary\">Create Account</button>\n		</form>\n	</div>\n</div>";
+  return "<div id=\"createAccount\">\n	<div class=\"container\">\n		<h1>Create account</h1>\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"User name\" >\n			</div>\n			<div class=\"form-group\">\n				<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Enter email\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n			</div>\n			<div class=\"error\" hidden></div>\n			<button id=\"createUser\" type=\"submit\" class=\"btn btn-primary\">Create Account</button>\n		</form>\n	</div>\n</div>";
   });
 templates['privateContentView'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
