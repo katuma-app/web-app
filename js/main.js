@@ -44,5 +44,7 @@ define(function (require) {
     
     // dependencies
     require("marionette");
-    var KatumaApp = require("application/KatumaApp");
+
+    //load katuma application.
+    require("application/KatumaApp");
 });
