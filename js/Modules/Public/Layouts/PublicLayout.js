@@ -12,7 +12,7 @@ define(function (require) {
 
 	//views
 	var TopbarView = require("Modules/Public/Views/TopbarView");
-	var WelcomeView = require("Modules/Public/Views/WelcomeView");
+	var WelcomeView = require("Modules/Public/Views/WelcomeView/WelcomeView");
 	var CreateUserView = require("Modules/Public/Views/CreateUserView");
 
     //module

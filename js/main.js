@@ -10,7 +10,8 @@ require.config({
         templates: "templates",
         "backbone.wreqr" : "libs/backbone.wreqr/lib/backbone.wreqr",
         "backbone.babysitter" : "libs/backbone.babysitter/lib/backbone.babysitter",
-        bootstrap:"libs/bootstrap/dist/js/bootstrap"
+        bootstrap:"libs/bootstrap/dist/js/bootstrap",
+        i18next:"libs/i18next/i18next"
     },
     shim : {
         jquery : {
