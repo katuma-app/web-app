@@ -43,7 +43,7 @@ define(function (require) {
 			"click .signOut": function (event) {
 				event.preventDefault();
 				this.trigger("logout");
-			}
+			},
 		}
 	});
 

@@ -2,9 +2,20 @@
 	<div class="jumbotron">
 		<div class="container">
 	    	<h1>Welcome {{name}}</h1>
-	    	<p>
-	    		<b>Email<b/>: {{email}}
-	    	</p>
 	    </div>
+	</div>
+	<div class="container">
+		<form role="form">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Name</label>
+				<input type="text" class="form-control" id="name" placeholder="Name"value="{{name}}">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Email</label>
+				<input type="email" class="form-control" id="email" placeholder="Email" value="{{email}}">
+			</div>
+			<button type="submit" class="saveUserData btn btn-default">Save Data</button>
+			<button type="submit" class="removeUser btn btn-danger">Remove account</button>
+		</form>
 	</div>
 </div>

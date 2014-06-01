@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div id=\"createAccount\">\n	<div class=\"container\">\n		<h1>Create account</h1>\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"User name\" >\n			</div>\n			<div class=\"form-group\">\n				<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Enter email\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"passwordConfirmation\" placeholder=\"Password confirmation\">\n			</div>\n			<div class=\"error\" hidden></div>\n			<button id=\"createUser\" type=\"submit\" class=\"btn btn-primary\">Create Account</button>\n		</form>\n	</div>\n</div>";
+  return "<div id=\"createAccount\">\n	<div class=\"container\">\n		<h1>Create account</h1>\n		\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"User name\" >\n			</div>\n			<div class=\"form-group\">\n				<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Enter email\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\">\n			</div>\n			<div class=\"form-group\">\n				<input type=\"password\" class=\"form-control\" id=\"passwordConfirmation\" placeholder=\"Password confirmation\">\n			</div>\n			<div class=\"error\" hidden></div>\n			<button id=\"createUser\" type=\"submit\" class=\"btn btn-primary\">Create Account</button>\n		</form>\n	</div>\n</div>";
   });
 templates['privateContentView'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -18,11 +18,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\n	    	<p>\n	    		<b>Email<b/>: ";
+    + "</h1>\n	    </div>\n	</div>\n	<div class=\"container\">\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<label for=\"exampleInputEmail1\">Name</label>\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Name\"value=\"";
+  if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n			</div>\n			<div class=\"form-group\">\n				<label for=\"exampleInputPassword1\">Email</label>\n				<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Email\" value=\"";
   if (stack1 = helpers.email) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.email); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\n	    	</p>\n	    </div>\n	</div>\n</div>\n";
+    + "\">\n			</div>\n			<button type=\"submit\" class=\"saveUserData btn btn-default\">Save Data</button>\n			<button type=\"submit\" class=\"removeUser btn btn-danger\">Remove account</button>\n		</form>\n	</div>\n</div>\n";
   return buffer;
   });
 templates['privateLayout'] = template(function (Handlebars,depth0,helpers,partials,data) {
