@@ -14,7 +14,7 @@ define(function (require) {
             this.errorDiv = this.$(".error");
         },
         getFormData: function(){
-            var form = this.$('form');
+            var form = this.$("form");
             return {
                 "email": form.find("#email").val(),
                 "name": form.find("#name").val(),
