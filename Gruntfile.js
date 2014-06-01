@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 				command: "cp -f js/Modules/Private/Templates/* js/_templates",
 			},
 			handlebars: {
-				command: "handlebars js/Templates/*.handlebars -f js/_templates.js"
+				command: "handlebars js/_templates/*.handlebars -f js/_templates.js"
 			}
 		},
 		watch: {
