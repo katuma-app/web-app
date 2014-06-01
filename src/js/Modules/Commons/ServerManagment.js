@@ -115,19 +115,15 @@ define(function (require) {
 		 * @param  {[type]} options [description]
 		 * @return {[type]}         [description]
 		 */
-		createSession:function(options){
-			var Session = Backbone.Model.extend({
-				url:url+"session",
-			});
-
-			var session = new Session(options.data);
-
-			session.save(null,{
-				error: options.error,
+		createSession:function(options){			
+			$.ajax({
+		        url: url+"session",
+		        type: "POST",
+				dataType: "json",
+				data: options.data,
+		        error: options.error,
 				success: options.success
 			});
-
-			return session;
 		}
 	};
 });

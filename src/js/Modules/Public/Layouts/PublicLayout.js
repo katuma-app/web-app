@@ -37,12 +37,12 @@ define(function (require) {
 	    },
 	    navigate: function(url){
 			var contentView;
-			var leftButton = this.topbarRegion.$el.find('#leftButton');
+			var leftButton = this.topbarRegion.$el.find("#leftButton");
 			
 			if( url === "welcome" || url === "/"){
 				contentView = new WelcomeView();
 				leftButton
-					.attr('href','#createUser')
+					.attr("href","#createUser")
 					.text("Sing Up");
 			}
 			else if ( url === "createUser"){
@@ -94,13 +94,19 @@ define(function (require) {
 			var self = this;
 			var topbarView = this.topbarRegion.currentView;
 			var data = topbarView.getFormData();
-			
+			data = {
+				"email": "a@a.com",
+				"password": "a"
+			};
 			var options = {
 				data:data,
 				error: function(error){
 					console.warn("ERROR in Sign In:"+error.statusText);
 				},
-				success: function(sessionModel){
+				success: function(sessionData){
+					var SessionModel = Backbone.Model.extend();
+					var sessionModel = new SessionModel(sessionData);
+
 					self.getUserData(sessionModel);
 				}
 			};
