@@ -7,7 +7,7 @@ require.config({
         jquery : "libs/jquery/dist/jquery",
         marionette : "libs/backbone.marionette/lib/backbone.marionette",
         handlebars: "libs/handlebars/handlebars",
-        templates: "templates",
+        templates: "_templates",
         "backbone.wreqr" : "libs/backbone.wreqr/lib/backbone.wreqr",
         "backbone.babysitter" : "libs/backbone.babysitter/lib/backbone.babysitter",
         bootstrap:"libs/bootstrap/dist/js/bootstrap",

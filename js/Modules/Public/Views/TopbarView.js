@@ -11,7 +11,7 @@ define(function (require) {
         template: Handlebars.templates.publicTopbarView,
         id:"topbarView",
         getFormData: function(){
-        	var form = this.$('form');
+        	var form = this.$("form");
 			return {
 				"email": form.find("[type=email]").val(),
 				"password": form.find("[type=password]").val()
