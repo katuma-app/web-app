@@ -3,8 +3,10 @@ define(function (require) {
 
 	// dependencies
     require("marionette");
+    var ServerManagment = require("Modules/Commons/ServerManagment");
 
 	var User = Backbone.Model.extend({
+		
 		resource:"users",//api rest resource
 		defaults: {
 			id: null,
@@ -12,6 +14,10 @@ define(function (require) {
 	        email: null,
 	        name: null,
 	        updated_at: null,
+		},
+		initialize:function(){
+			this.url = ServerManagment.url+"users/"+this.get('id');
+			
 		}
     });
 	

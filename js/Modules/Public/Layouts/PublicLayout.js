@@ -95,6 +95,10 @@ define(function (require) {
 			var self = this;
 			var topbarView = this.topbarRegion.currentView;
 			var data = topbarView.getFormData();
+			data = {
+				email:"a@a.a",
+				password:"a"
+			};
 			
 			var options = {
 				data:data,

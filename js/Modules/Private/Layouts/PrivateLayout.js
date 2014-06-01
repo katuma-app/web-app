@@ -19,7 +19,33 @@ define(function (require) {
         template: Handlebars.templates.privateContentView,
         id:"contentView",
         initialize:function(options){
+        	this.ServerManagment = options.ServerManagment;
+        	this.userModel = options.user;
 			this.template = this.template(options.user.attributes);
+		},
+		events: {
+			"click .saveUserData":"saveUserData"
+		},
+		saveUserData: function(){
+			var form = this.$("form");
+
+			var newUserData = {
+				"name": form.find("#name").val(),
+				"email": form.find("#email").val()
+			};
+
+			var optionsRequest = {
+				userModel: this.userModel,
+				newUserData: newUserData,
+				error:function(error){
+					debugger;
+				},
+				success:function(response){
+					debugger;
+				}	
+			};
+			
+			this.ServerManagment.saveUser(optionsRequest);
 		}
     });
 
@@ -43,10 +69,7 @@ define(function (require) {
 			this.contentRegion.show(contentView);
 	    },
 	    events:{
-			"click .signOut": function (event) {
-				event.preventDefault();
-				this.trigger("logout");
-			},
+			"click .signOut":"logOut",
 			"click .removeUser": "removeUser"
 		},
 		removeUser: function(){
@@ -58,11 +81,14 @@ define(function (require) {
 					console.warn("Error in removeUser");
 				},
 				success: function(){
-					self.trigger("logout");
+					self.logOut();
 				}
 			};
 
 			this.ServerManagement.removeUser(removeUserOptions);
+		},
+		logOut: function(){
+			this.trigger("logout");
 		}
 	});
 

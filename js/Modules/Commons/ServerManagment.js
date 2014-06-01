@@ -48,6 +48,23 @@ define(function (require) {
 				success: options.success
 		    });
 		},
+		saveUser:function(options){
+			var userModel = options.userModel;
+			var sessionModel = userModel.get("sessionModel");
+			var authorizationObject = getAuthorizationHeadersObject(sessionModel);
+			debugger;
+			$.ajax({
+		        url: url+"users/"+userModel.get("id"),
+		        type: "PUT",
+				dataType: "json",
+				data: {
+		        	"user":options.newUserData
+		        },
+		        headers: authorizationObject,
+		        error: options.error,
+				success: options.success
+		    });
+		},
 
 		/**
 		 * [getBootstrapData description]
