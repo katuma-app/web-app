@@ -48,6 +48,25 @@ define(function (require) {
 				success: options.success
 		    });
 		},
+		saveUser:function(options){
+			var userModel = options.userModel;
+			var sessionModel = userModel.get("sessionModel");
+			var dataObject = {
+				"user":options.newUserData
+			};
+
+			$.ajax({
+				url: url+"users/"+userModel.get("id"),
+		        type: "PUT",
+		        beforeSend: function(xhr){
+		        	var token = "Token "+sessionModel.get("access_token")+"";
+		        	xhr.setRequestHeader("Authorization",token);
+		        },
+		        data: dataObject,
+		        error: options.error,
+				success: options.success
+		    });
+		},
 
 		/**
 		 * [getBootstrapData description]
