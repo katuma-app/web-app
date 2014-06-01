@@ -23,7 +23,6 @@ define(function (require) {
 		}
     });
 
-
     //Module
 	var PrivateLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.privateLayout,
@@ -33,9 +32,13 @@ define(function (require) {
 	        contentRegion: "#contentRegion"
 	    },
 	    onShow: function(){
+	    	//public variables
+	    	this.ServerManagement = this.options.ServerManagment;
+			this.userModel = this.options.user;
+
+			//show regions
 			var topbarView = new TopbarView();
 			var contentView = new ContentView(this.options);
-			
 			this.topbarRegion.show(topbarView);
 			this.contentRegion.show(contentView);
 	    },
@@ -44,6 +47,22 @@ define(function (require) {
 				event.preventDefault();
 				this.trigger("logout");
 			},
+			"click .removeUser": "removeUser"
+		},
+		removeUser: function(){
+			var self = this;
+
+			var removeUserOptions = {
+				user: this.userModel,
+				error: function(){
+					console.warn("Error in removeUser");
+				},
+				success: function(){
+					self.trigger("logout");
+				}
+			};
+
+			this.ServerManagement.removeUser(removeUserOptions);
 		}
 	});
 

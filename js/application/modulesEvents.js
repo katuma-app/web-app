@@ -66,7 +66,7 @@ define(function (require) {
 					KatumaApp.privateModule.router = new PrivateRouter(this, KatumaApp);
 					KatumaApp.privateModule.router.navigate(url, {trigger: true});
 
-					//create private layout and show it
+					//create private layout and show it					
 					self.layout = new PrivateLayout({
 						user: userModel,
 						url: self.url,

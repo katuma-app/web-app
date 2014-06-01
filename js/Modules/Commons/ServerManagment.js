@@ -48,22 +48,20 @@ define(function (require) {
 				success: options.success
 		    });
 		},
-		
+
 		/**
 		 * [getBootstrapData description]
 		 * @return {[type]} [description]
 		 */
 		getUser:function(options){
 			var sessionModel = options.sessionModel;
+			var authorizationObject = getAuthorizationHeadersObject(sessionModel);
 			
 			$.ajax({
 		        url: url+"users/"+sessionModel.get("user_id"),
 		        type: "GET",
 				dataType: "json",
-				headers:{
-					"Content-Type":"application/json",
-					"Authorization": "Token "+sessionModel.get("access_token")+""
-				},
+				headers: authorizationObject,
 		        error: options.error,
 				success: options.success
 		    });
@@ -76,7 +74,11 @@ define(function (require) {
 		 */
 		removeUser:function(options){
 			var userModel = options.user;
-			var sessionModel = options.sessionModel;
+			var sessionModel = userModel.get("sessionModel");
+			if (!sessionModel) {
+				console.warn("Error removing user: this user didnt create a session");
+				return;
+			}
 			var authorizationObject = getAuthorizationHeadersObject(sessionModel);
 
 			$.ajax({
