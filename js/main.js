@@ -43,8 +43,5 @@ define(function (require) {
     
     // dependencies
     require("marionette");
-    var AppRouter = require("application/router");
-
-    new AppRouter();
-    Backbone.history.start();
+    var KatumaApp = require("application/KatumaApp");
 });

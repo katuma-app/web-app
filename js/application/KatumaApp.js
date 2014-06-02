@@ -7,16 +7,23 @@ define(function (require) {
 
 	//startApp
 	var KatumaApp = new Backbone.Marionette.Application();
-    
-    //create modules
-    KatumaApp.module("publicModule");
-    KatumaApp.module("privateModule");
-    modulesEvent(KatumaApp);
 
+    //share variables
+    KatumaApp.userModel = null;
+    
     //add region
     KatumaApp.addRegions({
         mainRegion: "body",
     });
+
+    $(KatumaApp.mainRegion.el).on("click","button",function(event){
+        event.preventDefault();
+    });
+
+    //create modules
+    KatumaApp.module("publicModule");
+    KatumaApp.module("privateModule");
+    modulesEvent(KatumaApp);
 
     return KatumaApp;
 });

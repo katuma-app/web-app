@@ -1,9 +1,9 @@
-"use strict";
-
 /*
 ** publicLayout for user that are not register in the app. 
  */
 define(function (require) {
+	"use strict";
+
 	//dependecies
 	require("marionette");
 	require("templates");
@@ -11,18 +11,18 @@ define(function (require) {
 
 	//module
 	var TopbarView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicTopbarView,
+        template: Handlebars.templates.privateTopbarView,
         id:"topbarView"
     });
 
     var ContentView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicContentView,
+        template: Handlebars.templates.privateContentView,
         id:"contentView"
     });
 
-	var PublicLayout = Backbone.Marionette.Layout.extend({
+	var PrivateLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.publicLayout,
-	    id:"publicLayout",
+	    id:"privateLayout",
 	    regions: {
 	        topbarRegion: "#topbarRegion",
 	        contentRegion: "#contentRegion"
@@ -33,17 +33,14 @@ define(function (require) {
 			
 			this.topbarRegion.show(topbarView);
 			this.contentRegion.show(contentView);
-
-			//TODO:we have to load the i18next and the LandingPage before the templates rendering, because this file are not prepare to be AMD. The file LandingPage has to be refactor and apply the logic of the translation and the email to the public controller. Untis this will be done this is the solution.
-			require(["libs/i18next-1.7.2.min", "libs/LandingPage"], function () {});
 	    },
 	    events:{
-			"click .signIn": function (event) {
+			"click .signOut": function (event) {
 				event.preventDefault();
-				this.trigger("signIn");
+				this.trigger("logout");
 			}
 		}
 	});
 
-	return PublicLayout;
+	return PrivateLayout;
 });
