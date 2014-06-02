@@ -17,11 +17,14 @@ define(function (require) {
 
     var ContentView = Backbone.Marionette.ItemView.extend({
         template: Handlebars.templates.privateContentView,
-        id:"contentView"
+        id:"contentView",
+        initialize:function(options){
+			this.template = this.template(options.user.attributes);
+		}
     });
 
 	var PrivateLayout = Backbone.Marionette.Layout.extend({
-	    template: Handlebars.templates.publicLayout,
+	    template: Handlebars.templates.privateLayout,
 	    id:"privateLayout",
 	    regions: {
 	        topbarRegion: "#topbarRegion",
@@ -29,7 +32,7 @@ define(function (require) {
 	    },
 	    onShow: function(){
 			var topbarView = new TopbarView();
-			var contentView = new ContentView();
+			var contentView = new ContentView(this.options);
 			
 			this.topbarRegion.show(topbarView);
 			this.contentRegion.show(contentView);
