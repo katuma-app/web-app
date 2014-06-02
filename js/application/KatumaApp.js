@@ -3,7 +3,7 @@ define(function (require) {
     
 	//dependencies
 	require("marionette");
-    var modulesEvent = require("application/modulesEvents");
+    var modulesEvent = require("application/ModulesEvents");
     var ServerManagment = require("Modules/Commons/ServerManagment");
 
 	//startApp

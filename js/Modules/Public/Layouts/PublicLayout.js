@@ -10,28 +10,12 @@ define(function (require) {
 	require("bootstrap");
 	var User = require("models/User");
 
-	//module
-	var TopbarView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicTopbarView,
-        id:"topbarView"
-    });
+	//views
+	var TopbarView = require("Modules/Public/Views/TopbarView");
+	var WelcomeView = require("Modules/Public/Views/WelcomeView/WelcomeView");
+	var CreateUserView = require("Modules/Public/Views/CreateUserView");
 
-    var WelcomeView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.publicContentView,
-        id:"welcomeView",
-        onShow: function(){
-        	//TODO:we have to load the i18next and the LandingPage before the templates rendering, because this file are not prepare to be AMD. The file LandingPage has to be refactor and apply the logic of the translation and the email to the public controller. Untis this will be done this is the solution.
-			require(["libs/i18next-1.7.2.min"], function () {
-				require(["libs/LandingPage"], function(){});
-			});
-        }
-    });
-
-    var CreateUserView = Backbone.Marionette.ItemView.extend({
-        template: Handlebars.templates.createUserView,
-        id:"createUserView"
-    });
-
+    //module
 	var PublicLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.publicLayout,
 	    id:"publicLayout",
@@ -72,38 +56,29 @@ define(function (require) {
 			this.contentRegion.show(contentView);
 		},
 	    events:{
-			"click .signIn": function (event) {
-				event.preventDefault();
-				this.trigger("signIn");
-			},
+			"click .signIn": "signIn",
 			"click #createUser":"createUser"
 		},
 		createUser: function(event){
 			event.preventDefault();
 			var self = this;
-			var form = $(event.target).parent();
-			var userData = {
-		        "email": form.find("#email").val(),
-		        "name": form.find("#name").val(),
-		        "password": form.find("#password").val(),
-		        "password_confirmation": form.find("#passwordConfirmation").val()
-		    };
-
-		    //remove error element layout
-		    var errorDiv = this.$(".error");
-		    	errorDiv.hide();
-		    	errorDiv.empty();
+			var createAccountView = this.contentRegion.currentView;
+			var userData = createAccountView.getFormData();
+			createAccountView.removeErrors();
 
 		    var createUserOptions = {
 		    	userData: userData,
 		    	error: function(error){			        
 					if(error.responseJSON){
 		                var errors = error.responseJSON.errors;
-		                errorDiv.show();
+		                var errorDiv = createAccountView.errorDiv;
+		                
 		                $.each(errors, function(index, value){
 		                    console.log("ERROR "+(index+1)+": " + value);
 		                    errorDiv.append("<p class='bg-danger'>"+value+"</p>");
 						});
+
+						errorDiv.show();
 		            }
 				},
 				success: function(response){
@@ -116,6 +91,49 @@ define(function (require) {
 		    //call to the server
 		    this.ServerManagment.createUser(createUserOptions);
 		},
+		signIn: function(event){
+			var self = this;
+			var topbarView = this.topbarRegion.currentView;
+			var data = topbarView.getFormData();
+			
+			var options = {
+				data:data,
+				error: function(session, error, request){
+					console.warn("ERROR in Sign In:"+error.statusText);
+
+		            session.destroy();
+				},
+				success: function(sessionModel, attributes, request){
+					self.getUserData(sessionModel);
+				}
+			};
+
+			this.ServerManagment.createSession(options);
+		},
+		getUserData: function(sessionModel){
+			var self = this;
+
+			var options = {
+				sessionModel: sessionModel,
+				error: function(session, error, request){
+					if(error.responseJSON){
+		                var errors = error.responseJSON.errors;
+		                $.each(errors, function(index, value){
+		                    console.log("ERROR "+(index+1)+": " + value);
+		                });
+		            }
+
+		            session.destroy();
+				},
+				success: function(response){
+					var userData = response.users[0];				
+					var userModel = new User(userData);
+					self.trigger("signIn", userModel);
+				}
+			};
+
+			this.ServerManagment.getUser(options);
+		}
 	});
 
 	return PublicLayout;

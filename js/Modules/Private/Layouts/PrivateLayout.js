@@ -9,7 +9,7 @@ define(function (require) {
 	require("templates");
 	require("bootstrap");
 
-	//module
+	//Views
 	var TopbarView = Backbone.Marionette.ItemView.extend({
         template: Handlebars.templates.privateTopbarView,
         id:"topbarView"
@@ -23,6 +23,8 @@ define(function (require) {
 		}
     });
 
+
+    //Module
 	var PrivateLayout = Backbone.Marionette.Layout.extend({
 	    template: Handlebars.templates.privateLayout,
 	    id:"privateLayout",
@@ -41,7 +43,7 @@ define(function (require) {
 			"click .signOut": function (event) {
 				event.preventDefault();
 				this.trigger("logout");
-			}
+			},
 		}
 	});
 

@@ -37,13 +37,13 @@ module.exports = function(grunt) {
 		},
 		shell: {
 			gather_public_handlebar_files: {
-				command: "cp -f js/Modules/Public/Templates/* js/Templates"
+				command: "cp -f js/Modules/Public/Templates/* js/_templates"
 			},
 			gather_private_handlebar_files: {
-				command: "cp -f js/Modules/Private/Templates/* js/Templates",
+				command: "cp -f js/Modules/Private/Templates/* js/_templates",
 			},
 			handlebars: {
-				command: "handlebars js/Templates/*.handlebars -f js/templates.js"
+				command: "handlebars js/_templates/*.handlebars -f js/_templates.js"
 			}
 		},
 		watch: {
