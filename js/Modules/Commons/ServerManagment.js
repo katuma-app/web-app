@@ -8,6 +8,13 @@ define(function (require) {
 	//private variables
 	var url = "http://localhost:3000/api/v1/";
 
+	var getAuthorizationHeadersObject = function (sessionModel){
+		return {
+			"Content-Type":"application/json",
+			"Authorization": "Token "+sessionModel.get("access_token")+""
+		};
+	};
+
 	//public methods
 	return {
 		/**
@@ -43,6 +50,48 @@ define(function (require) {
 		},
 
 		/**
+		 * [getBootstrapData description]
+		 * @return {[type]} [description]
+		 */
+		getUser:function(options){
+			var sessionModel = options.sessionModel;
+			var authorizationObject = getAuthorizationHeadersObject(sessionModel);
+			
+			$.ajax({
+		        url: url+"users/"+sessionModel.get("user_id"),
+		        type: "GET",
+				dataType: "json",
+				headers: authorizationObject,
+		        error: options.error,
+				success: options.success
+		    });
+		},
+
+		/**
+		 * [removeUser description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
+		removeUser:function(options){
+			var userModel = options.user;
+			var sessionModel = userModel.get("sessionModel");
+			if (!sessionModel) {
+				console.warn("Error removing user: this user didnt create a session");
+				return;
+			}
+			var authorizationObject = getAuthorizationHeadersObject(sessionModel);
+
+			$.ajax({
+		        url: url+"users/"+userModel.get("id"),
+		        type: "DELETE",
+				dataType: "json",
+				headers: authorizationObject,
+		        error: options.error,
+				success: options.success
+		    });
+		},
+
+		/**
 		 * [createSession description]
 		 * @param  {[type]} options [description]
 		 * @return {[type]}         [description]
@@ -60,26 +109,6 @@ define(function (require) {
 			});
 
 			return session;
-		},
-
-		/**
-		 * [getBootstrapData description]
-		 * @return {[type]} [description]
-		 */
-		getUser:function(options){
-			var sessionModel = options.sessionModel;
-			
-			$.ajax({
-		        url: url+"users/"+sessionModel.get("user_id"),
-		        type: "GET",
-				dataType: "json",
-				headers:{
-					"Content-Type":"application/json",
-					"Authorization": "Token "+sessionModel.get("access_token")+""
-				},
-		        error: options.error,
-				success: options.success
-		    });
 		}
 	};
 });

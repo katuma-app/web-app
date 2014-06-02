@@ -128,6 +128,7 @@ define(function (require) {
 				success: function(response){
 					var userData = response.users[0];				
 					var userModel = new User(userData);
+					userModel.set("sessionModel",sessionModel);
 					self.trigger("signIn", userModel);
 				}
 			};
