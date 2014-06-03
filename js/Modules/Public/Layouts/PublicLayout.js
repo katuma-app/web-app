@@ -94,10 +94,6 @@ define(function (require) {
 			var self = this;
 			var topbarView = this.topbarRegion.currentView;
 			var data = topbarView.getFormData();
-			data = {
-				email:"a@a.a",
-				password:"a"
-			};
 			
 			var options = {
 				data:data,
@@ -116,15 +112,8 @@ define(function (require) {
 
 			var options = {
 				sessionModel: sessionModel,
-				error: function(session, error, request){
-					if(error.responseJSON){
-		                var errors = error.responseJSON.errors;
-		                $.each(errors, function(index, value){
-		                    console.log("ERROR "+(index+1)+": " + value);
-		                });
-		            }
-
-		            session.destroy();
+				error: function(){
+		            console.log("ERROR: getUserData");
 				},
 				success: function(response){
 					var userData = response.users[0];				
