@@ -22,11 +22,15 @@ define(function (require) {
         	this.ServerManagment = options.ServerManagment;
         	this.userModel = options.user;
 			this.template = this.template(options.user.attributes);
+		},
+		onShow:function(){
 			var form = this.$("form");
-
+			var nameSpan = this.$("span.name");
+			
 			//usermodel events
 			this.userModel.on("change:name", function(){
 				form.find("#name").val(this.get("name"));
+				nameSpan.text(this.get("name"));
 			});
 
 			this.userModel.on("change:email", function(){
