@@ -41,7 +41,6 @@ define(function (require) {
 			
 			if( url === "welcome" || url === "/"){
 				contentView = new WelcomeView();
-
 				leftButton
 					.attr('href','#createUser')
 					.text("Sing Up");
@@ -91,19 +90,21 @@ define(function (require) {
 		    //call to the server
 		    this.ServerManagment.createUser(createUserOptions);
 		},
-		signIn: function(event){
+		signIn: function(){
 			var self = this;
 			var topbarView = this.topbarRegion.currentView;
 			var data = topbarView.getFormData();
+			data = {
+				email:"a@a.a",
+				password:"a"
+			};
 			
 			var options = {
 				data:data,
-				error: function(session, error, request){
+				error: function(error){
 					console.warn("ERROR in Sign In:"+error.statusText);
-
-		            session.destroy();
 				},
-				success: function(sessionModel, attributes, request){
+				success: function(sessionModel){
 					self.getUserData(sessionModel);
 				}
 			};

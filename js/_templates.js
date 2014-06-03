@@ -14,11 +14,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div>\n	<div class=\"jumbotron\">\n		<div class=\"container\">\n	    	<h1>Welcome ";
+  buffer += "<div>\n	<div class=\"jumbotron\">\n		<div class=\"container\">\n	    	<h1>Welcome <span class=\"name\">";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h1>\n	    </div>\n	</div>\n	<div class=\"container\">\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<label for=\"exampleInputEmail1\">Name</label>\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Name\"value=\"";
+    + "</span></h1>\n	    </div>\n	</div>\n	<div class=\"container\">\n		<form role=\"form\">\n			<div class=\"form-group\">\n				<label for=\"exampleInputEmail1\">Name</label>\n				<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Name\"value=\"";
   if (stack1 = helpers.name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.name); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
