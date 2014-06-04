@@ -21,6 +21,12 @@ Install the dependencies:
     $ npm install
     $ cd src
     $ bower install
+    
+Run the server:
+
+	$ node server.js
+	
+go to http://localhost:4000/
 
 Run grunt "watch" task to compile handlebar template and less css each time it is modified. (Grunt instalation http://gruntjs.com/getting-started)
 	
