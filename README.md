@@ -2,21 +2,31 @@
 
 Javascrip, Html and Css application for browsers.
 
-# How to install
+### How to install
 
 Clone the repository:
 
     $ git clone https://github.com/coopdevs/katuma_webApp.git
 
+Install nodejs http://nodejs.org/
+
+Install global packages:
+	
+	$ npm install handlebars -g
+	$ npm install -g bower
+
 Install the dependencies:
 
     $ cd katuma_webApp
     $ npm install
+    $ cd src
     $ bower install
 
-Run grunt "watch" task to compile handlebar template and less css.
-
+Run grunt "watch" task to compile handlebar template and less css each time it is modified. (Grunt instalation http://gruntjs.com/getting-started)
+	
+	$ cd katuma_webApp
     $ grunt watch
+
 
 ## Frameworks and tools that we are using:
 
